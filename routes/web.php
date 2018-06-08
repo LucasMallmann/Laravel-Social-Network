@@ -10,27 +10,32 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
-Route::group(['middleware' => ['web']], function(){
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
-    Route::post('/signup', [
-        // qual controller vai usar
-        'uses' => 'UserController@postSignUp',
-        'as' => 'signup'
-    ]);
-
-    Route::post('/signin', [
-        'uses' => 'UserController@postSignIn',
-        'as' => 'signin'
-    ]);
-    
-    Route::get('/dashboard', [
-        'uses' => 'UserController@getDashBoard',
-        'as' => 'dashboard'
-    ]);
+Route::get('/', function () {
+    return view('welcome');
 });
+
+Route::post('/signup', [
+    // qual controller vai usar
+    'uses' => 'UserController@postSignUp',
+    'as' => 'signup'
+]);
+
+Route::post('/signin', [
+    'uses' => 'UserController@postSignIn',
+    'as' => 'signin'
+]);
+
+
+Route::get('/dashboard', [
+    'uses' => 'UserController@getDashBoard',
+    'as' => 'dashboard'
+])->middleware('/home');
+
+// Route::group(['middleware' => ['myauth']], function(){
+//     Route::get('/dashboard', [
+//         'uses' => 'UserController@getDashBoard',
+//         'as' => 'dashboard',
+//         'middleware' => 'myauth'
+//     ]);
+    
+// });
